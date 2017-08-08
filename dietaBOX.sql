@@ -119,6 +119,21 @@ insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, 
 insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (11, 9, 'Andrzej', 'Dzida', 'klient', 'a_dzida@onet.pl', 'a_dzida', 'Dzida1!');
 
 
+CREATE TABLE uprawnienia_prac (
+    id INT,
+    Imię VARCHAR(20),
+    Nazwisko VARCHAR(50),
+    uprawnienia VARCHAR(20),
+    e_mail VARCHAR(25),
+    login VARCHAR(20),
+    hasło VARCHAR(20)
+);
+insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (1, 'Marzena', 'Królewska', 'pracownik','m_królewska@box.pl' , 'm_królewska', 'Krole1!');
+insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (2, 'Helena', 'Bielarz', 'pracownik', 'h_bielarz@box.pl', 'h_bielarz', 'Biela1!');
+insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (3, 'Jolanta', 'Stolarek', 'pracownik','j_stolarek@box.pl' , 'j_stolarek', 'Stola1!');
+insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (4, 'Wojciech', 'Kępiński', 'pracownik','w_kepinski@box.pl' , 'w_kepinski', 'Kepin1!');
+
+
 
 
 #dla klientów:
