@@ -103,20 +103,22 @@ CREATE TABLE uprawnienia (
     uprawnienia VARCHAR(20),
     e_mail VARCHAR(25),
     login VARCHAR(20),
-    hasło VARCHAR(20),
+    haslo VARCHAR(20),
     PRIMARY KEY (ID),
     FOREIGN KEY (id_k)
         REFERENCES klient (id_k)
 );
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (1, 1, 'Anna', 'Banak', 'klient','a_Banak@wp.pl' , 'a_malinowska', 'Mali1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (2, 3, 'Krzysztof', 'Dobrowolski', 'klient', 'k_dobrowolski@o2.pl', 'k_dobrowolski', 'Dobro1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (5, 8, 'Urszula', 'Bojanowska', 'klient','u_boja@wp.pl' , 'a_bojanowska', 'Boja1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (6, 4, 'Jan', 'Kowalski', 'klient','J.kowal@wp.pl' , 'j_kowalski', 'Kowal1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (7, 5, 'Anna', 'Józefowicz',  'klient', 'pysia@o2.pl', 'a_jozefowicz', 'Jozef1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (8, 6, 'Jerzy', 'Bućko', 'klient', 'Jerzyk@o2.pl', 'j_bucko', 'Bucko1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (9, 7,'Czesław', 'Barszcz', 'klient', 'Bar@wp.pl', 'c_barsz', 'Barsz1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (10, 2, 'Helena', 'Jędrysek', 'klient', 'h_jedr@wp.pl', 'h_jedry', 'Jedry1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (11, 9, 'Andrzej', 'Dzida', 'klient', 'a_dzida@onet.pl', 'a_dzida', 'Dzida1!');
+insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (1, 1, 'Anna', 'Banak', 'klient','a_Banak@wp.pl' , 'a_malinowska', 'Mali1!');
+insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (2, 3, 'Krzysztof', 'Dobrowolski', 'klient', 'k_dobrowolski@o2.pl', 'k_dobrowolski', 'Dobro1!');
+insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (5, 8, 'Urszula', 'Bojanowska', 'klient','u_boja@wp.pl' , 'a_bojanowska', 'Boja1!');
+insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (6, 4, 'Jan', 'Kowalski', 'klient','J.kowal@wp.pl' , 'j_kowalski', 'Kowal1!');
+insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (7, 5, 'Anna', 'Józefowicz',  'klient', 'pysia@o2.pl', 'a_jozefowicz', 'Jozef1!');
+insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (8, 6, 'Jerzy', 'Bućko', 'klient', 'Jerzyk@o2.pl', 'j_bucko', 'Bucko1!');
+insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (9, 7,'Czesław', 'Barszcz', 'klient', 'Bar@wp.pl', 'c_barsz', 'Barsz1!');
+insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (10, 2, 'Helena', 'Jędrysek', 'klient', 'h_jedr@wp.pl', 'h_jedry', 'Jedry1!');
+insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (11, 9, 'Andrzej', 'Dzida', 'klient', 'a_dzida@onet.pl', 'a_dzida', 'Dzida1!');
+
+
 
 
 CREATE TABLE uprawnienia_prac (
@@ -126,12 +128,12 @@ CREATE TABLE uprawnienia_prac (
     uprawnienia VARCHAR(20),
     e_mail VARCHAR(25),
     login VARCHAR(20),
-    hasło VARCHAR(20)
+    haslo VARCHAR(20)
 );
-insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (1, 'Marzena', 'Królewska', 'pracownik','m_królewska@box.pl' , 'm_królewska', 'Krole1!');
-insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (2, 'Helena', 'Bielarz', 'pracownik', 'h_bielarz@box.pl', 'h_bielarz', 'Biela1!');
-insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (3, 'Jolanta', 'Stolarek', 'pracownik','j_stolarek@box.pl' , 'j_stolarek', 'Stola1!');
-insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, hasło) values (4, 'Wojciech', 'Kępiński', 'pracownik','w_kepinski@box.pl' , 'w_kepinski', 'Kepin1!');
+insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (1, 'Marzena', 'Królewska', 'pracownik','m_królewska@box.pl' , 'm_królewska', 'Krole1!');
+insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (2, 'Helena', 'Bielarz', 'pracownik', 'h_bielarz@box.pl', 'h_bielarz', 'Biela1!');
+insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (3, 'Jolanta', 'Stolarek', 'pracownik','j_stolarek@box.pl' , 'j_stolarek', 'Stola1!');
+insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (4, 'Wojciech', 'Kępiński', 'pracownik','w_kepinski@box.pl' , 'w_kepinski', 'Kepin1!');
 
 
 
@@ -199,7 +201,7 @@ select * from klienci_opis;
 
 # administrator dane dot loginów i haseł startowych klietnów
 SELECT 
-    imię, nazwisko, telefon, miasto, e_mail, login, hasło
+    imię, nazwisko, telefon, miasto, e_mail, login, haslo
 FROM
     klient
         NATURAL LEFT JOIN
