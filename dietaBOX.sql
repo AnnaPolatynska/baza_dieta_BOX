@@ -2,6 +2,27 @@ create database dieta_box;
 use dieta_box;
 
 
+#tabela punkty odbioru - możliwość wyboru dogodnej lokalizacji dla klienta
+CREATE TABLE punkty_odbioru (
+    id_o INT,
+    miasto VARCHAR(15),
+    nazwa_punktu VARCHAR(50),
+    adres_punktu VARCHAR(50),
+    PRIMARY KEY (id_o)
+    
+);
+	INSERT INTO punkty_odbioru
+	(id_o, miasto, nazwa_punktu, adres_punktu )
+VALUES
+	(1, 'Warszawa', 'Klub Sportowy S4', 'ul. Bony 6'),
+	(2, 'Piastów', 'Szkoła tańca FEN', 'ul. Warszawska 92' ),
+    (3, 'Piastów', 'Klub Sportowy S4', 'ul. Prusa 16' ),
+    (4, 'Warszawa', 'Oxygen Fitness', 'ul. Gierdziejowskiego 17'),
+    (5, 'Warszawa', 'Cross Klub Ursus', 'ul. Warszawska 58'),
+    (6, 'Piastów', 'Fight Klub Pitbul', 'ul. Konopnickiej 12');
+
+
+
 
 #tabela klienci
 CREATE TABLE klient (
@@ -10,20 +31,24 @@ CREATE TABLE klient (
     imię VARCHAR(10),
     telefon VARCHAR(27),
     miasto VARCHAR(15),
-    PRIMARY KEY (id_k)
-    
+    id_o INT,
+    PRIMARY KEY (id_k),
+    FOREIGN KEY (id_o)
+        REFERENCES punkty_odbioru (id_o)
 );
-insert into klient (id_k, nazwisko, imię, telefon, miasto) VALUES (1, 'Banak',	'Anna', '611-655-788', 'Piastów');
-insert into klient (id_k, nazwisko, imię, telefon, miasto) VALUES (2, 'Jędrysek', 'Helena', '511-235-697',  'Piastów');
-insert into klient (id_k, nazwisko, imię, telefon, miasto) VALUES (3, 'Dobrowolski', 'Krzysztof', '620-14-08', 'Piastów');
-insert into klient (id_k, nazwisko, imię, telefon, miasto) VALUES (4, 'Kowalski',	'Jan', '511-676-333', 'Warszawa');
-insert into klient (id_k, nazwisko, imię, telefon, miasto) VALUES (5, 'Józefowicz',	'Anna', '669-0216-698', 'Warszawa');
-insert into klient (id_k, nazwisko, imię, telefon, miasto) VALUES (6, 'Bućko',	'Jerzy', '615-418-922', 'Warszawa');
-insert into klient (id_k, nazwisko, imię, telefon, miasto) VALUES (7, 'Barszcz',	'Czesław', '609-656-873', 'Piastów');
-insert into klient (id_k, nazwisko, imię, telefon, miasto) VALUES (8, 'Bojanowska',	'Urszula', '602-912-586', 'Piastów');
-insert into klient (id_k, nazwisko, imię, telefon, miasto) VALUES (9, 'Dzida',	'Andrzej', '911-353-961', 'Warszawa');
+insert into klient (id_k, nazwisko, imię, telefon, miasto, id_o) 
+VALUES 
+(1, 'Banak',	'Anna', '611-655-788', 'Piastów', 2),
+(2, 'Jędrysek', 'Helena', '511-235-697',  'Piastów', 2),
+(3, 'Dobrowolski', 'Krzysztof', '620-14-08', 'Piastów', 6),
+(4, 'Kowalski',	'Jan', '511-676-333', 'Warszawa', 5),
+(5, 'Józefowicz',	'Anna', '669-0216-698', 'Warszawa', 4),
+(6, 'Bućko',	'Jerzy', '615-418-922', 'Warszawa', 4),
+(7, 'Barszcz',	'Czesław', '609-656-873', 'Piastów', 3),
+(8, 'Bojanowska',	'Urszula', '602-912-586', 'Piastów', 6),
+(9, 'Dzida', 'Andrzej', '911-353-961', 'Warszawa', 1);
 
-#delete from klient WHERE id_k=10; 
+
 
 
 #tabela produkty
@@ -46,20 +71,19 @@ VALUES
 
 
 
-
 #tabela zamówienie łączą klienta z zamówieniem
 CREATE TABLE zamówienia (
-    id_z int,
-	id_k int,
-    id_d int,
+    id_z INT,
+    id_k INT,
+    id_d INT,
     opłacono VARCHAR(10),
     od_kiedy DATE,
-    primary key (id_z),
+    PRIMARY KEY (id_z),
     FOREIGN KEY (id_k)
         REFERENCES klient (id_k),
-	FOREIGN KEY (id_d)
+    FOREIGN KEY (id_d)
         REFERENCES diety (id_d)
-	);
+);
 	INSERT INTO zamówienia
 	(id_z, id_k, id_d, opłacono, od_kiedy) 
 VALUES
@@ -71,27 +95,6 @@ VALUES
     (6, 5, 2, 'TAK','2017-08-10'),
 	(7, 6, 4, 'TAK','2017-08-01');
 
-
-#tabela punkty odbioru - możliwość wyboru dogodnej lokalizacji dla klienta
-CREATE TABLE punkty_odbioru(
-    id_o int,
-	miasto VARCHAR(15),
-    id_k int,
-    nazwa_punktu VARCHAR(50),
-    adres_punktu VARCHAR(50),
-       primary key (id_o),
-    FOREIGN KEY (id_k)
-        REFERENCES klient (id_k)
-);
-	INSERT INTO punkty_odbioru
-	(id_o, miasto, id_k, nazwa_punktu, adres_punktu )
-VALUES
-	(1, 'Warszawa', 1, 'Klub Sportowy S4', 'ul. Bony 6'),
-	(2, 'Piastów', 2, 'Szkoła tańca FEN', 'ul. Warszawska 92' ),
-    (3, 'Piastów', 3, 'Klub Sportowy S4', 'ul. Prusa 16' ),
-    (4, 'Warszawa', 4, 'Oxygen Fitness', 'ul. Gierdziejowskiego 17'),
-    (5, 'Warszawa', 5, 'Cross Klub Ursus', 'ul. Warszawska 58'),
-    (6, 'Piastów', 6, 'Fight Klub Pitbul', 'ul. Konopnickiej 12');
 
 
 # tabela uprawnień użytkowników
@@ -108,15 +111,15 @@ CREATE TABLE uprawnienia (
     FOREIGN KEY (id_k)
         REFERENCES klient (id_k)
 );
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (1, 1, 'Anna', 'Banak', 'klient','a_Banak@wp.pl' , 'a_malinowska', 'Mali1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (2, 3, 'Krzysztof', 'Dobrowolski', 'klient', 'k_dobrowolski@o2.pl', 'k_dobrowolski', 'Dobro1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (5, 8, 'Urszula', 'Bojanowska', 'klient','u_boja@wp.pl' , 'a_bojanowska', 'Boja1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (6, 4, 'Jan', 'Kowalski', 'klient','J.kowal@wp.pl' , 'j_kowalski', 'Kowal1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (7, 5, 'Anna', 'Józefowicz',  'klient', 'pysia@o2.pl', 'a_jozefowicz', 'Jozef1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (8, 6, 'Jerzy', 'Bućko', 'klient', 'Jerzyk@o2.pl', 'j_bucko', 'Bucko1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (9, 7,'Czesław', 'Barszcz', 'klient', 'Bar@wp.pl', 'c_barsz', 'Barsz1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (10, 2, 'Helena', 'Jędrysek', 'klient', 'h_jedr@wp.pl', 'h_jedry', 'Jedry1!');
-insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (11, 9, 'Andrzej', 'Dzida', 'klient', 'a_dzida@onet.pl', 'a_dzida', 'Dzida1!');
+insert into uprawnienia (ID, id_k, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (1, 1, 'Anna', 'Banak', 'klient','a_Banak@wp.pl' , 'a_baniak', 'Bania1!'),
+(2, 3, 'Krzysztof', 'Dobrowolski', 'klient', 'k_dobrowolski@o2.pl', 'k_dobrowolski', 'Dobro1!'),
+(5, 8, 'Urszula', 'Bojanowska', 'klient','u_boja@wp.pl' , 'a_bojanowska', 'Boja1!'),
+(6, 4, 'Jan', 'Kowalski', 'klient','J.kowal@wp.pl' , 'j_kowalski', 'Kowal1!'),
+(7, 5, 'Anna', 'Józefowicz',  'klient', 'pysia@o2.pl', 'a_jozefowicz', 'Jozef1!'),
+(8, 6, 'Jerzy', 'Bućko', 'klient', 'Jerzyk@o2.pl', 'j_bucko', 'Bucko1!'),
+(9, 7,'Czesław', 'Barszcz', 'klient', 'Bar@wp.pl', 'c_barsz', 'Barsz1!'),
+(10, 2, 'Helena', 'Jędrysek', 'klient', 'h_jedr@wp.pl', 'h_jedry', 'Jedry1!'),
+(11, 9, 'Andrzej', 'Dzida', 'klient', 'a_dzida@onet.pl', 'a_dzida', 'Dzida1!');
 
 
 
@@ -130,21 +133,17 @@ CREATE TABLE uprawnienia_prac (
     login VARCHAR(20),
     haslo VARCHAR(20)
 );
-insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (1, 'Marzena', 'Królewska', 'pracownik','m_królewska@box.pl' , 'm_królewska', 'Krole1!');
-insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (2, 'Helena', 'Bielarz', 'pracownik', 'h_bielarz@box.pl', 'h_bielarz', 'Biela1!');
-insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (3, 'Jolanta', 'Stolarek', 'pracownik','j_stolarek@box.pl' , 'j_stolarek', 'Stola1!');
-insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values (4, 'Wojciech', 'Kępiński', 'pracownik','w_kepinski@box.pl' , 'w_kepinski', 'Kepin1!');
+insert into uprawnienia_prac (id, Imię, Nazwisko, uprawnienia, e_mail, login, haslo) values 
+(1, 'Marzena', 'Królewska', 'pracownik','m_królewska@box.pl' , 'm_królewska', 'Krole1!'),
+(2, 'Helena', 'Bielarz', 'pracownik', 'h_bielarz@box.pl', 'h_bielarz', 'Biela1!'),
+(3, 'Jolanta', 'Stolarek', 'pracownik','j_stolarek@box.pl' , 'j_stolarek', 'Stola1!'),
+(4, 'Wojciech', 'Kępiński', 'pracownik','w_kepinski@box.pl' , 'w_kepinski', 'Kepin1!');
 
 
 
 
 #dla klientów:
 # 1. co oferujemy - jakie typy boxów
-SELECT 
-    dieta, opis, cena_netto, cena_netto * 1.23 AS 'cena_brutto'
-FROM
-    diety;
-
 
 SELECT 
     id_d, dieta, opis, cena_netto, cena_netto * 1.23 AS 'cena_brutto'
@@ -168,10 +167,13 @@ SELECT * FROM diety order by cena_netto;
 
 # 3.  gdzie odebrać zamówione boxy
 SELECT 
-    nazwa_punktu, adres_punktu, miasto
+    id_o, nazwa_punktu, adres_punktu, miasto
 FROM
     punkty_odbioru
 ORDER BY miasto;
+
+SELECT nazwa_punktu, adres_punktu, miasto FROM punkty_odbioru WHERE id_o=1 ;
+
 
 CREATE VIEW punkty_opis as SELECT nazwa_punktu, adres_punktu, miasto FROM punkty_odbioru ORDER BY miasto;
 alter view punkty_opis as SELECT nazwa_punktu, adres_punktu, miasto FROM punkty_odbioru ORDER BY miasto;
@@ -201,12 +203,19 @@ select * from klienci_opis;
 
 # administrator dane dot loginów i haseł startowych klietnów
 SELECT 
-    imię, nazwisko, telefon, miasto, e_mail, login, haslo
+   id_k, imię, nazwisko, telefon, miasto, e_mail, login, haslo
 FROM
     klient
         NATURAL LEFT JOIN
     uprawnienia
 ORDER BY nazwisko;
+
+SELECT 
+   id_k, login
+FROM
+    klient
+        NATURAL LEFT JOIN
+    uprawnienia;
 
 
 
@@ -247,25 +256,71 @@ WHERE
 
 
 
-# daty realizacji zamówień dla poszczególnych klientów
+# daty realizacji zamówień dla poszczególnych klientów, czy opłacone i gdzie klient chce odbrać
 SELECT 
+    opłacono,
+    id_d,
     dieta,
     od_kiedy,
     DATE_ADD(od_kiedy, INTERVAL 1 MONTH) AS do_kiedy,
+    id_k,
     imię,
     nazwisko,
     telefon,
     miasto,
-    opłacono
+    id_o,
+    nazwa_punktu,
+    adres_punktu
 FROM
     diety
         NATURAL LEFT JOIN
     zamówienia
         NATURAL LEFT JOIN
     klient
+        NATURAL LEFT JOIN
+    punkty_odbioru
 WHERE
     opłacono IS NOT NULL
 ORDER BY od_kiedy;
+
+
+# dla kuchni jakie diety od kiedy i dla dostawców gdzie dostarczyć
+SELECT 
+   dieta,
+   od_kiedy,
+    DATE_ADD(od_kiedy, INTERVAL 1 MONTH) AS do_kiedy,
+    nazwa_punktu,
+    adres_punktu
+FROM
+    zamówienia
+        NATURAL LEFT JOIN
+    klient
+        NATURAL LEFT JOIN
+    diety
+        NATURAL LEFT JOIN
+    punkty_odbioru
+WHERE
+    id_z IS NOT NULL
+ORDER BY dieta;
+
+
+
+#zamówienia poszczególnych klientów
+SELECT 
+    id_z, id_k, imię, nazwisko, id_d, dieta, id_o, opłacono, od_kiedy
+FROM
+    diety
+        NATURAL LEFT JOIN
+    zamówienia
+        NATURAL LEFT JOIN
+    klient
+    WHERE
+    id_z IS NOT NULL
+ORDER BY id_k;
+
+
+
+
 
 #widok daty realizacji zamówień 
 CREATE VIEW daty_realizacji AS
